@@ -34,6 +34,7 @@ public class CoffeeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //format the actionbar
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayOptions(actionBar.DISPLAY_SHOW_CUSTOM);
         View cView = getLayoutInflater().inflate(R.layout.actionbar, null);
@@ -41,14 +42,12 @@ public class CoffeeActivity extends Activity {
 
         setContentView(R.layout.coffeelist_layout);
 
-        coffeelist = new ArrayList<Coffee>();
-
         //API GET Request
         String url = apiEndpoint + apiKey;
-        //Log.i("endpoint url", url);
         new apiCallTask().execute(url);
 
         //set view objects and adapter
+        coffeelist = new ArrayList<Coffee>();
         lv = (ListView) findViewById(R.id.listview);
         adapter = new ListViewAdapter(getApplicationContext(), R.layout.row, coffeelist);
         lv.setAdapter(adapter);
@@ -60,11 +59,11 @@ public class CoffeeActivity extends Activity {
 
         protected JSONArray doInBackground(String... urls){
             try{
-                // create connection
+                // create a URL connection
                 URL request = new URL(urls[0]);
                 HttpURLConnection urlConnection = JsonUtil.createConnection(request);
 
-                // create JSON object from content
+                // create JSONArray object from content
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 return new JSONArray(JsonUtil.getResponseText(in));
 
@@ -74,11 +73,12 @@ public class CoffeeActivity extends Activity {
             }
         }
 
-
         protected void onPostExecute(JSONArray result) {
 
             //store all values from JSONArray into coffeelist (an ArrayList of Coffee Objects)
             coffeelist = JsonUtil.JsonToArrayList(result, coffeelist);
+
+            //notify the ListViewAdapter that the underlying data has changed
             adapter.notifyDataSetChanged();
 
             //Log all names in the coffeelist

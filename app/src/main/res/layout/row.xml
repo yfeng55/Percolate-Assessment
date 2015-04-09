@@ -34,7 +34,7 @@
         android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:src="" />
+        android:src="@drawable/drip" />
 
 
 </LinearLayout>
