@@ -44,8 +44,6 @@ public class ListViewAdapter extends ArrayAdapter<Coffee> {
             holder = (ViewHolder) v.getTag();
         }
 
-        holder.imageview.setImageResource(R.drawable.drip);
-
         //getIMAGE
         new DownloadImageTask(holder.imageview).execute(coffeelist.get(position).getImageURL());
 

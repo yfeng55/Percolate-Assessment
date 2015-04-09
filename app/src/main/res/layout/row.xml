@@ -28,11 +28,13 @@
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/drip" />
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="" />
 
 
 </LinearLayout>
