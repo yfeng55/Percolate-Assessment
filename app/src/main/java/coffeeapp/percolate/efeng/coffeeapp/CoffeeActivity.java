@@ -82,10 +82,10 @@ public class CoffeeActivity extends Activity {
             adapter.notifyDataSetChanged();
 
             //Log all names in the coffeelist
-            for (int i = 0; i < coffeelist.size(); i++) {
-                Coffee entry = coffeelist.get(i);
-                Log.i("JSON OUTPUT", entry.getName());
-            }
+//            for (int i = 0; i < coffeelist.size(); i++) {
+//                Coffee entry = coffeelist.get(i);
+//                Log.i("JSON OUTPUT", entry.getName());
+//            }
 
         }
     }
