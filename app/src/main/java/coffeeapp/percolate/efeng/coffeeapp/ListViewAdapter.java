@@ -35,7 +35,10 @@ public class ListViewAdapter extends ArrayAdapter<Coffee> {
         if (v == null) {
             holder = new ViewHolder();
             v = vi.inflate(Resource, null);
-            holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
+
+            //IMAGE
+//            holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
+
             holder.tvName = (TextView) v.findViewById(R.id.tvName);
             holder.tvDescription = (TextView) v.findViewById(R.id.tvDesc);
             v.setTag(holder);
@@ -43,7 +46,7 @@ public class ListViewAdapter extends ArrayAdapter<Coffee> {
             holder = (ViewHolder) v.getTag();
         }
 
-        holder.imageview.setImageResource(R.drawable.drip);
+//        holder.imageview.setImageResource(R.drawable.drip);
 
         //getIMAGE
         //new DownloadImageTask(holder.imageview).execute(coffeelist.get(position).getImageURL());
@@ -61,6 +64,7 @@ public class ListViewAdapter extends ArrayAdapter<Coffee> {
 
     }
 
+    //IMAGETASK
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 

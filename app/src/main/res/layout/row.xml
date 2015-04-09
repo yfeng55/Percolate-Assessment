@@ -6,31 +6,29 @@
     android:padding="4dp"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:text="Coffee Name"
+        android:textSize="18sp"
+        android:textColor="@color/darkgray"
+        android:layout_margin="5dp" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Coffee Name"
-            android:textColor="#166CED"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/lightgray"
+        android:layout_margin="5dp"
+        android:text="Coffee Description" />
 
-        <TextView
-            android:id="@+id/tvDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#D64530"
-            android:text="Coffee Description" />
+    <!--<ImageView-->
+        <!--android:id="@+id/ivImage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:src="@drawable/drip" />-->
 
-        <ImageView
-            android:id="@+id/ivImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:src="@drawable/drip" />
 
-    </LinearLayout>
 </LinearLayout>

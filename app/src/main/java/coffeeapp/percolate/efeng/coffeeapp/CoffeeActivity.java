@@ -1,4 +1,5 @@
 package coffeeapp.percolate.efeng.coffeeapp;
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CoffeeActivity extends ActionBarActivity {
+public class CoffeeActivity extends Activity {
 
     private final static String apiEndpoint = "https://coffeeapi.percolate.com/api/coffee/?api_key=";
     private final static String apiKey = "WuVbkuUsCXHPx3hsQzus4SE";
