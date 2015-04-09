@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,16 +22,20 @@ public class CoffeeActivity extends ActionBarActivity {
 
     private final static String apiEndpoint = "https://coffeeapi.percolate.com/api/coffee/?api_key=";
     private final static String apiKey = "WuVbkuUsCXHPx3hsQzus4SE";
+    ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coffeelist_layout);
 
+        //set view objects
+        lv = (ListView) findViewById(R.id.listview);
+
         String url = apiEndpoint + apiKey;
         Log.i("endpoint url", url);
 
-        new apiCallTask().execute("https://coffeeapi.percolate.com/api/coffee/?api_key=WuVbkuUsCXHPx3hsQzus4SE");
+        new apiCallTask().execute(url);
 
     }
 
@@ -58,26 +63,8 @@ public class CoffeeActivity extends ActionBarActivity {
 
             ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
 
-            //store in a hashmap
-            for (int i = 0; i < result.length(); i++) {
-
-                HashMap<String, String> map = new HashMap<String, String>();
-                JSONObject e = null;
-
-                try {
-                    e = result.getJSONObject(i);
-
-                    //store all of the JSONObject's properties in the hashmap
-                    map.put("desc", e.getString("desc"));
-                    map.put("image_url", e.getString("image_url"));
-                    map.put("id", e.getString("id"));
-                    map.put("name", e.getString("name"));
-                    maplist.add(map);
-
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-            }
+            //store all values from JSONArray into an ArrayList of Hashmaps
+            maplist = JsonUtil.JsonToArrayList(result, maplist);
 
             for (int i = 0; i < maplist.size(); i++) {
                 HashMap<String, String> entry = maplist.get(i);
