@@ -1,9 +1,11 @@
 package coffeeapp.percolate.efeng.coffeeapp;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +33,12 @@ public class CoffeeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(actionBar.DISPLAY_SHOW_CUSTOM);
+        View cView = getLayoutInflater().inflate(R.layout.actionbar, null);
+        actionBar.setCustomView(cView);
+
         setContentView(R.layout.coffeelist_layout);
 
         coffeelist = new ArrayList<Coffee>();
