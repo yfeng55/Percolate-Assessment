@@ -7,23 +7,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
-public class ListViewAdapter extends ArrayAdapter<Actors> {
-    ArrayList<Actors> actorList;
+public class ListViewAdapter extends ArrayAdapter<Coffee> {
+    ArrayList<Coffee> coffeelist;
     LayoutInflater vi;
     int Resource;
     ViewHolder holder;
 
-    public ActorAdapter(Context context, int resource, ArrayList<Actors> objects) {
+    public ListViewAdapter(Context context, int resource, ArrayList<Coffee> objects) {
         super(context, resource, objects);
         vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resource = resource;
-        actorList = objects;
+        coffeelist = objects;
     }
 
     @Override
@@ -35,25 +37,19 @@ public class ListViewAdapter extends ArrayAdapter<Actors> {
             v = vi.inflate(Resource, null);
             holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
             holder.tvName = (TextView) v.findViewById(R.id.tvName);
-            holder.tvDescription = (TextView) v.findViewById(R.id.tvDescriptionn);
-            holder.tvDOB = (TextView) v.findViewById(R.id.tvDateOfBirth);
-            holder.tvCountry = (TextView) v.findViewById(R.id.tvCountry);
-            holder.tvHeight = (TextView) v.findViewById(R.id.tvHeight);
-            holder.tvSpouse = (TextView) v.findViewById(R.id.tvSpouse);
-            holder.tvChildren = (TextView) v.findViewById(R.id.tvChildren);
+            holder.tvDescription = (TextView) v.findViewById(R.id.tvDesc);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
         }
-        holder.imageview.setImageResource(R.drawable.ic_launcher);
-        new DownloadImageTask(holder.imageview).execute(actorList.get(position).getImage());
-        holder.tvName.setText(actorList.get(position).getName());
-        holder.tvDescription.setText(actorList.get(position).getDescription());
-        holder.tvDOB.setText("B'day: " + actorList.get(position).getDob());
-        holder.tvCountry.setText(actorList.get(position).getCountry());
-        holder.tvHeight.setText("Height: " + actorList.get(position).getHeight());
-        holder.tvSpouse.setText("Spouse: " + actorList.get(position).getSpouse());
-        holder.tvChildren.setText("Children: " + actorList.get(position).getChildren());
+
+        holder.imageview.setImageResource(R.drawable.drip);
+
+        //getIMAGE
+        //new DownloadImageTask(holder.imageview).execute(coffeelist.get(position).getImageURL());
+
+        holder.tvName.setText(coffeelist.get(position).getName());
+        holder.tvDescription.setText(coffeelist.get(position).getDesc());
         return v;
 
     }
@@ -62,11 +58,6 @@ public class ListViewAdapter extends ArrayAdapter<Actors> {
         public ImageView imageview;
         public TextView tvName;
         public TextView tvDescription;
-        public TextView tvDOB;
-        public TextView tvCountry;
-        public TextView tvHeight;
-        public TextView tvSpouse;
-        public TextView tvChildren;
 
     }
 

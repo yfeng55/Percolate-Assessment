@@ -38,29 +38,35 @@ public class JsonUtil {
         return new Scanner(inStream).useDelimiter("\\A").next();
     }
 
-    public static ArrayList<HashMap<String, String>> JsonToArrayList(JSONArray result, ArrayList<HashMap<String, String>> maplist){
+    public static ArrayList<Coffee> JsonToArrayList(JSONArray result, ArrayList<Coffee> coffeelist){
         //store in a hashmap
         for (int i = 0; i < result.length(); i++) {
 
-            HashMap<String, String> map = new HashMap<String, String>();
+            //HashMap<String, String> map = new HashMap<String, String>();
+            Coffee cof = new Coffee();
             JSONObject e = null;
 
             try {
                 e = result.getJSONObject(i);
 
                 //store all of the JSONObject's properties in the hashmap
-                map.put("desc", e.getString("desc"));
-                map.put("image_url", e.getString("image_url"));
-                map.put("id", e.getString("id"));
-                map.put("name", e.getString("name"));
-                maplist.add(map);
+//                map.put("desc", e.getString("desc"));
+//                map.put("image_url", e.getString("image_url"));
+//                map.put("id", e.getString("id"));
+//                map.put("name", e.getString("name"));
+
+                cof.setName(e.getString("name"));
+                cof.setDesc(e.getString("desc"));
+                cof.setID(e.getString("id"));
+                cof.setImageURL(e.getString("image_url"));
+                coffeelist.add(cof);
 
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
         }
 
-        return maplist;
+        return coffeelist;
     }
 
 

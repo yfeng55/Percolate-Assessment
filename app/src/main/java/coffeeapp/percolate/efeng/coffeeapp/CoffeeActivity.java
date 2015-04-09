@@ -22,20 +22,27 @@ public class CoffeeActivity extends ActionBarActivity {
 
     private final static String apiEndpoint = "https://coffeeapi.percolate.com/api/coffee/?api_key=";
     private final static String apiKey = "WuVbkuUsCXHPx3hsQzus4SE";
-    ListView lv;
+
+    private ListView lv;
+    protected ArrayList<Coffee> coffeelist;
+    private ListViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coffeelist_layout);
 
-        //set view objects
-        lv = (ListView) findViewById(R.id.listview);
+        coffeelist = new ArrayList<Coffee>();
 
+        //API GET Request
         String url = apiEndpoint + apiKey;
-        Log.i("endpoint url", url);
-
+        //Log.i("endpoint url", url);
         new apiCallTask().execute(url);
+
+        //set view objects and adapter
+        lv = (ListView) findViewById(R.id.listview);
+        adapter = new ListViewAdapter(getApplicationContext(), R.layout.row, coffeelist);
+        lv.setAdapter(adapter);
 
     }
 
@@ -61,14 +68,14 @@ public class CoffeeActivity extends ActionBarActivity {
 
         protected void onPostExecute(JSONArray result) {
 
-            ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+            //store all values from JSONArray into coffeelist (an ArrayList of Coffee Objects)
+            coffeelist = JsonUtil.JsonToArrayList(result, coffeelist);
+            adapter.notifyDataSetChanged();
 
-            //store all values from JSONArray into an ArrayList of Hashmaps
-            maplist = JsonUtil.JsonToArrayList(result, maplist);
-
-            for (int i = 0; i < maplist.size(); i++) {
-                HashMap<String, String> entry = maplist.get(i);
-                Log.i("JSON OUTPUT", entry.get("name"));
+            //Log all names in the coffeelist
+            for (int i = 0; i < coffeelist.size(); i++) {
+                Coffee entry = coffeelist.get(i);
+                Log.i("JSON OUTPUT", entry.getName());
             }
 
         }
