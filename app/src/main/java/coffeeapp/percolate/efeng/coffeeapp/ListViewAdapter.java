@@ -79,9 +79,9 @@ public class ListViewAdapter extends ArrayAdapter<Coffee> {
             }
             return mIcon;
         }
-
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
     }
+
 }
