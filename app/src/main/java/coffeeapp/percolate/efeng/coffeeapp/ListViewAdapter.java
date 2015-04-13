@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,14 +15,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ListViewAdapter extends ArrayAdapter<Coffee> {
+
     ArrayList<Coffee> coffeelist;
-    LayoutInflater vi;
+    LayoutInflater inflater;
     int Resource;
     ViewHolder holder;
 
     public ListViewAdapter(Context context, int resource, ArrayList<Coffee> objects) {
         super(context, resource, objects);
-        vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resource = resource;
         coffeelist = objects;
     }
@@ -34,19 +34,23 @@ public class ListViewAdapter extends ArrayAdapter<Coffee> {
         View v = convertView;
         if (v == null) {
             holder = new ViewHolder();
-            v = vi.inflate(Resource, null);
+            v = inflater.inflate(Resource, null);
 
+            //set view objects
             holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
             holder.tvName = (TextView) v.findViewById(R.id.tvName);
             holder.tvDescription = (TextView) v.findViewById(R.id.tvDesc);
+
             v.setTag(holder);
+
         } else {
             holder = (ViewHolder) v.getTag();
+            //resets the image to remove flickering inside listview rows
+            holder.imageview.setImageBitmap(null);
         }
 
-        //getIMAGE
+        //get image
         new DownloadImageTask(holder.imageview).execute(coffeelist.get(position).getImageURL());
-
         holder.tvName.setText(coffeelist.get(position).getName());
         holder.tvDescription.setText(coffeelist.get(position).getDesc());
         return v;
@@ -69,15 +73,15 @@ public class ListViewAdapter extends ArrayAdapter<Coffee> {
         }
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
-            Bitmap mIcon = null;
+            Bitmap retrievedImage = null;
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon = BitmapFactory.decodeStream(in);
+                retrievedImage = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
-                Log.e("Error", e.getMessage());
+                Log.e("ERROR", e.getMessage());
                 e.printStackTrace();
             }
-            return mIcon;
+            return retrievedImage;
         }
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
